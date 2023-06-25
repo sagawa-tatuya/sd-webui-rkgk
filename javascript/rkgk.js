@@ -13,36 +13,28 @@ class Rkgk {
 	static #MM = 0
 	static #DD = 0
 
-	static #curRkgkPrompt = ''
-
-	// プロンプト先頭に 'YYYY/MM/DD AI rkgk' を追加する
+	// rkgk プロンプト追加
 	static #updatePrompt() {
-		const newRkgkPrompt = `${this.#YYYY}/${this.#MM}/${this.#DD} AI rkgk`
+		const rkgkPrompt = 'AI rkgk'
+		const signPrompt = 'signature "Sagawa"'
 		const prompt = gradioApp()
 			.getElementById( 'txt2img_prompt' )
 			.querySelector( 'textarea' )
 
-		if ( this.#curRkgkPrompt == '' ) {
-			// 初回実行
-			this.#curRkgkPrompt = newRkgkPrompt
-		}
-
-		const curRkgkPrompt = this.#curRkgkPrompt
 		var curPrompt = prompt.value
 
-		if ( curPrompt.indexOf( curRkgkPrompt ) == -1 ) {
+		if ( curPrompt.indexOf( rkgkPrompt ) == -1 ) {
 			// rkgk プロンプト未追加 or 追加したが削除された
 			if ( curPrompt == '' ) {
-				curPrompt = curRkgkPrompt
+				curPrompt = rkgkPrompt
 			} else {
-				curPrompt = curRkgkPrompt + ', ' + curPrompt
+				curPrompt = rkgkPrompt + ', ' + curPrompt
 			}
 		}
 
-		if ( curRkgkPrompt != newRkgkPrompt ) {
-			// 日付が変わっている
-			curPrompt = curPrompt.replace( curRkgkPrompt, newRkgkPrompt )
-			this.#curRkgkPrompt = newRkgkPrompt
+		if ( curPrompt.indexOf( signPrompt ) == -1 ) {
+			// シグネチャプロンプト未追加 or 追加したが削除された
+			curPrompt = curPrompt + ', ' + signPrompt
 		}
 
 		prompt.value = curPrompt
