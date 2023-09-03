@@ -16,7 +16,7 @@ class Rkgk {
 	// rkgk プロンプト追加
 	static #updatePrompt() {
 		const rkgkPrompt = 'AI rkgk'
-		const signPrompt = 'signature "Sagawa"'
+		const signPrompt = '<lora:signature_sagawa_v03:1.0> signature'
 		const prompt = gradioApp()
 			.getElementById( 'txt2img_prompt' )
 			.querySelector( 'textarea' )
@@ -103,7 +103,7 @@ class Rkgk {
 class RkgkElementBuilder {
 	static rkgkButton( { onClick } ) {
 		const rkgkButton = gradioApp()
-			.getElementById( 'txt2img_style_create' )
+			.getElementById( 'txt2img_clear_prompt' )
 			.cloneNode()
 
 		rkgkButton.id = 'txt2img_rkgk_button'
